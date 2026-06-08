@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PrixRentable — Outils Rentables</title>
+  <meta name="description" content="PrixRentable est une app locale pour indépendants : calculez vos tarifs, vérifiez vos marges, simulez vos remises et préparez vos propositions commerciales. Paiement unique, sans compte, sans abonnement." />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --soft: #f6f9fc;
+      --soft-warm: #fff7ed;
+      --heading: #061b31;
+      --body: #64748d;
+      --label: #273951;
+      --purple: #533afd;
+      --purple-hover: #4434d4;
+      --orange: #ea580c;
+      --amber: #f97316;
+      --green: #108c3d;
+      --border: #e5edf5;
+      --border-warm: #fed7aa;
+      --dark: #1c1e54;
+      --shadow: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px;
+      --shadow-soft: rgba(23,23,23,0.08) 0px 15px 35px 0px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Source Sans 3', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-feature-settings: "ss01";
+      color: var(--heading);
+      background:
+        radial-gradient(circle at 80% 0%, rgba(249, 115, 22, .16), transparent 28rem),
+        radial-gradient(circle at 8% 16%, rgba(83, 58, 253, .10), transparent 24rem),
+        #fff;
+    }
+
+    a { color: inherit; }
+    img, video { max-width: 100%; display: block; }
+
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,.82);
+      border-bottom: 1px solid rgba(229,237,245,.75);
+    }
+    .nav-inner { height: 72px; display:flex; align-items:center; justify-content:space-between; gap: 22px; }
+    .brand { display:flex; align-items:center; gap: 10px; font-weight: 600; letter-spacing: -.02em; color: var(--heading); text-decoration: none; }
+    .mark { width: 34px; height: 34px; border-radius: 8px; background: linear-gradient(135deg, var(--orange), var(--purple)); box-shadow: var(--shadow-soft); position: relative; }
+    .mark::after { content:"€"; position:absolute; inset:0; display:grid; place-items:center; color:white; font-weight:700; font-size:18px; }
+    .nav-links { display:flex; align-items:center; gap: 20px; color: var(--label); font-size: 15px; }
+    .nav-links a { text-decoration:none; }
+
+    .button {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      border-radius: 6px;
+      padding: 12px 18px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 500;
+      line-height: 1;
+      transition: transform .16s ease, background .16s ease, box-shadow .16s ease;
+      white-space: nowrap;
+    }
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { background: var(--purple); color: white; box-shadow: rgba(83,58,253,.28) 0 16px 34px -18px; }
+    .button-primary:hover { background: var(--purple-hover); }
+    .button-secondary { background: white; color: var(--purple); border-color: #b9b9f9; }
+    .button-secondary:hover { background: rgba(83,58,253,.05); }
+    .button-warm { background: var(--heading); color: white; }
+
+    .hero { padding: 86px 0 54px; }
+    .hero-grid { display:grid; grid-template-columns: 1.02fr .98fr; align-items:center; gap: 54px; }
+    .eyebrow { display:inline-flex; gap: 8px; align-items:center; color: var(--orange); font-weight: 600; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 18px; }
+    .dot { width: 8px; height: 8px; border-radius: 99px; background: var(--orange); box-shadow: 0 0 0 6px rgba(234,88,12,.10); }
+    h1 { margin:0; color: var(--heading); font-size: clamp(42px, 6vw, 68px); line-height: .98; font-weight: 300; letter-spacing: -1.7px; }
+    .lead { margin: 22px 0 0; color: var(--body); font-size: 21px; line-height: 1.42; font-weight: 300; max-width: 620px; }
+    .hero-actions { display:flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; align-items:center; }
+    .microcopy { color: var(--body); font-size: 14px; margin-top: 13px; }
+    .metrics { display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 34px; }
+    .metric { padding: 14px; border:1px solid var(--border); background: rgba(255,255,255,.82); border-radius:8px; box-shadow: rgba(23,23,23,.06) 0 8px 26px; }
+    .metric strong { display:block; font-size:24px; line-height:1; font-weight: 400; font-variant-numeric: tabular-nums; }
+    .metric span { display:block; color: var(--body); font-size:13px; margin-top:6px; }
+
+    .product-card { background:white; border:1px solid var(--border); border-radius: 8px; overflow:hidden; box-shadow: var(--shadow); transform: rotate(1deg); }
+    .product-card-header { display:flex; align-items:center; gap:8px; padding: 12px 14px; background:#f6f9fc; border-bottom:1px solid var(--border); }
+    .window-dot { width:10px; height:10px; border-radius:99px; background:#cbd5e1; }
+    .window-dot:nth-child(1) { background:#fb7185; }
+    .window-dot:nth-child(2) { background:#fbbf24; }
+    .window-dot:nth-child(3) { background:#34d399; }
+    .product-card img { width:100%; height:auto; }
+
+    section { padding: 74px 0; }
+    .section-head { max-width:760px; margin-bottom: 30px; }
+    .section-head.center { margin-left:auto; margin-right:auto; text-align:center; }
+    h2 { margin:0; color: var(--heading); font-size: clamp(32px, 4vw, 48px); line-height:1.08; font-weight:300; letter-spacing:-.9px; }
+    .section-head p { margin:14px 0 0; color: var(--body); font-size:19px; line-height:1.48; font-weight:300; }
+
+    .problem { background: linear-gradient(180deg, rgba(246,249,252,.55), rgba(255,255,255,0)); }
+    .problem-grid { display:grid; grid-template-columns: .8fr 1.2fr; gap: 26px; align-items:start; }
+    .quote-card { background: var(--dark); color:white; border-radius:8px; padding:30px; box-shadow: var(--shadow); }
+    .quote-card p { margin:0; font-size:28px; line-height:1.13; letter-spacing:-.5px; font-weight:300; }
+    .quote-card span { display:block; margin-top:16px; color:rgba(255,255,255,.68); }
+    .pain-list { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:14px; }
+    .pain { padding:20px; border:1px solid var(--border); border-radius:8px; background:white; box-shadow: rgba(23,23,23,.05) 0 10px 28px; }
+    .pain strong { font-size:20px; font-weight:400; letter-spacing:-.15px; }
+    .pain p { margin:8px 0 0; color: var(--body); line-height:1.45; }
+
+    .features-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+    .feature { background:white; border:1px solid var(--border); border-radius:8px; padding:22px; box-shadow: rgba(23,23,23,.06) 0 12px 32px; min-height: 178px; }
+    .feature-icon { width:38px; height:38px; border-radius:8px; display:grid; place-items:center; color:white; background: linear-gradient(135deg, var(--orange), var(--purple)); margin-bottom:18px; font-weight:600; }
+    .feature h3 { margin:0; font-size:22px; line-height:1.12; font-weight:300; letter-spacing:-.2px; }
+    .feature p { margin:10px 0 0; color: var(--body); line-height:1.45; }
+
+    .gallery { background: #f6f9fc; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .gallery-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .gallery-card { background:white; border:1px solid var(--border); border-radius:8px; padding: 10px; box-shadow: var(--shadow-soft); }
+    .gallery-card img { border-radius: 5px; border: 1px solid #edf2f7; }
+
+    .video-wrap { background:white; border:1px solid var(--border); border-radius:8px; overflow:hidden; box-shadow: var(--shadow); }
+    video { width: 100%; background:#0f172a; }
+
+    .offer { background: var(--dark); color: white; position: relative; overflow:hidden; }
+    .offer::before { content:""; position:absolute; width: 520px; height:520px; border-radius:50%; background: radial-gradient(circle, rgba(249,115,22,.30), transparent 60%); top:-180px; right:-140px; }
+    .offer .container { position:relative; }
+    .offer-grid { display:grid; grid-template-columns: 1fr .88fr; gap: 36px; align-items:center; }
+    .offer h2 { color:white; }
+    .offer p { color:rgba(255,255,255,.72); }
+    .included { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 24px; }
+    .included div { padding:14px; border:1px solid rgba(255,255,255,.14); border-radius:8px; background:rgba(255,255,255,.07); color:rgba(255,255,255,.88); }
+    .price-card { background:white; color:var(--heading); border-radius:8px; padding:30px; box-shadow: var(--shadow); }
+    .badge { display:inline-flex; align-items:center; color: var(--green); background:rgba(21,190,83,.14); border:1px solid rgba(21,190,83,.28); border-radius:4px; padding:3px 8px; font-size:13px; font-weight:500; }
+    .price { font-size: 64px; line-height:1; font-weight:300; letter-spacing:-1.2px; margin: 18px 0 8px; font-variant-numeric: tabular-nums; }
+    .price small { font-size: 20px; color: var(--body); }
+    .price-card ul { margin:20px 0; padding-left: 22px; color: var(--label); line-height:1.65; }
+    .price-card .button { width:100%; }
+    .fine { color: var(--body); font-size: 13px; line-height:1.4; margin-top: 12px; }
+
+    .transparency-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .transparency-card { border:1px solid var(--border-warm); background: var(--soft-warm); border-radius:8px; padding: 24px; }
+    .transparency-card h3 { margin:0 0 10px; font-size:24px; font-weight:300; }
+    .transparency-card p, .faq p { color: var(--body); line-height:1.55; }
+    .faq-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .faq { background:white; border:1px solid var(--border); border-radius:8px; padding:20px; box-shadow: rgba(23,23,23,.05) 0 10px 28px; }
+    .faq h3 { margin:0; font-weight:400; font-size:20px; }
+    .faq p { margin:8px 0 0; }
+
+    .final-cta { text-align:center; padding: 90px 0; }
+    .final-cta .box { background:white; border:1px solid var(--border); border-radius:8px; padding:42px; box-shadow: var(--shadow); }
+    .footer { padding: 34px 0; border-top:1px solid var(--border); color:var(--body); font-size:14px; }
+    .footer .container { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+
+    @media (max-width: 880px) {
+      .nav-links { display:none; }
+      .hero-grid, .problem-grid, .offer-grid, .transparency-grid { grid-template-columns:1fr; }
+      .features-grid, .gallery-grid, .faq-grid { grid-template-columns:1fr; }
+      .pain-list, .included, .metrics { grid-template-columns:1fr; }
+      .product-card { transform:none; }
+      section { padding: 54px 0; }
+      .hero { padding-top:54px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top"><span class="mark"></span><span>Outils Rentables</span></a>
+      <div class="nav-links">
+        <a href="index.html#produits">Produits</a>
+        <a href="#probleme">PrixRentable</a>
+        <a href="#fonctionnalites">Fonctionnalités</a>
+        <a href="#demo">Démo</a>
+        <a href="#offre">Prix</a>
+        <a class="button button-primary" href="#offre">Obtenir PrixRentable</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> App locale · paiement unique · sans abonnement</div>
+          <h1>Fixez des prix plus rentables sans tableur compliqué.</h1>
+          <p class="lead">PrixRentable aide les indépendants à calculer leurs tarifs, vérifier leurs marges, simuler une remise et préparer une proposition commerciale avec plus de confiance.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#offre">Obtenir PrixRentable — 79 €</a>
+            <a class="button button-secondary" href="#demo">Voir la démo</a>
+          </div>
+          <p class="microcopy">Téléchargement immédiat après achat · Données locales · Garantie 14 jours</p>
+          <div class="metrics" aria-label="Arguments principaux">
+            <div class="metric"><strong>0</strong><span>compte à créer</span></div>
+            <div class="metric"><strong>1×</strong><span>paiement unique</span></div>
+            <div class="metric"><strong>14j</strong><span>pour tester</span></div>
+          </div>
+        </div>
+        <div class="product-card" aria-label="Capture PrixRentable">
+          <div class="product-card-header"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span></div>
+          <img src="assets/images/01-cover.png" alt="Aperçu de PrixRentable : calculer un prix rentable avant proposition commerciale" />
+        </div>
+      </div>
+    </header>
+
+    <section class="problem" id="probleme">
+      <div class="container problem-grid">
+        <div class="quote-card">
+          <p>“Je ne sais pas si ce prix est vraiment rentable… mais j’ai peur d’être trop cher.”</p>
+          <span>Le dilemme classique des indépendants avant d’envoyer une proposition.</span>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2>Vous facturez peut-être trop bas sans le savoir.</h2>
+            <p>Quand le prix est fixé au feeling, une mission peut remplir l’agenda sans vraiment protéger votre marge.</p>
+          </div>
+          <div class="pain-list">
+            <div class="pain"><strong>Coûts oubliés</strong><p>Temps non facturé, frais, achats, sous-traitance, préparation : tout finit par compter.</p></div>
+            <div class="pain"><strong>Remises trop rapides</strong><p>Un geste commercial peut sembler petit mais rogner fortement votre marge.</p></div>
+            <div class="pain"><strong>Seuil flou</strong><p>Sans prix minimum clair, difficile de savoir quand refuser ou renégocier.</p></div>
+            <div class="pain"><strong>Manque de confiance</strong><p>Vous annoncez un prix plus sereinement quand vous savez pourquoi il tient debout.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fonctionnalites">
+      <div class="container">
+        <div class="section-head center">
+          <h2>Une base claire avant d’envoyer votre prix.</h2>
+          <p>PrixRentable n’essaie pas de remplacer vos outils métier. Il vous aide à préparer votre chiffrage commercial avant de décider.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature"><div class="feature-icon">1</div><h3>Calculez un prix viable</h3><p>Temps, coûts, frais, marge cible et TVA indicative : vous visualisez les hypothèses importantes.</p></div>
+          <div class="feature"><div class="feature-icon">2</div><h3>Protégez votre marge</h3><p>Voyez le prix conseillé, le seuil minimum et l’impact réel d’une remise avant de l’accepter.</p></div>
+          <div class="feature"><div class="feature-icon">3</div><h3>Préparez un PDF propre</h3><p>Générez une proposition commerciale préparatoire à relire et adapter avant envoi client.</p></div>
+          <div class="feature"><div class="feature-icon">4</div><h3>Gardez vos modèles</h3><p>Réutilisez vos prestations types pour chiffrer plus vite les prochaines demandes.</p></div>
+          <div class="feature"><div class="feature-icon">5</div><h3>Vos données restent chez vous</h3><p>L’app fonctionne localement dans le navigateur, sans compte ni backend applicatif.</p></div>
+          <div class="feature"><div class="feature-icon">6</div><h3>Payez une fois</h3><p>Pas d’abonnement mensuel pour un outil que vous voulez simplement utiliser quand vous préparez vos prix.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <div class="container">
+        <div class="section-head">
+          <h2>Un outil concret, pas une promesse abstraite.</h2>
+          <p>Le pack inclut des écrans dédiés au calcul, aux remises, aux propositions PDF et à la sauvegarde locale.</p>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-card"><img src="assets/images/02-calculateur.png" alt="Calculateur PrixRentable : prix conseillé, marge, seuil minimum" /></div>
+          <div class="gallery-card"><img src="assets/images/03-remise.png" alt="Simulation de remise PrixRentable" /></div>
+          <div class="gallery-card"><img src="assets/images/04-pdf.png" alt="Proposition commerciale PDF préparatoire" /></div>
+          <div class="gallery-card"><img src="assets/images/05-local.png" alt="Données locales, export et import JSON" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo">
+      <div class="container">
+        <div class="section-head center">
+          <h2>Voir PrixRentable en 1 minute.</h2>
+          <p>La démo montre le parcours principal : chiffrage, marge, remise et proposition commerciale.</p>
+        </div>
+        <div class="video-wrap">
+          <video src="assets/video/PrixRentable-demo-1min-v4-moins-10mb.mp4" controls preload="metadata" poster="assets/images/01-cover.png"></video>
+        </div>
+      </div>
+    </section>
+
+    <section class="offer" id="offre">
+      <div class="container offer-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Pack lancement</div>
+          <h2>PrixRentable Solo</h2>
+          <p class="lead">L’app locale pour fixer des tarifs plus rentables avant d’envoyer vos propositions commerciales.</p>
+          <div class="included">
+            <div>Application locale V1</div>
+            <div>Calculateur de tarif</div>
+            <div>Simulation de remise</div>
+            <div>Proposition PDF</div>
+            <div>Export/import JSON</div>
+            <div>Exemples inclus</div>
+          </div>
+        </div>
+        <aside class="price-card">
+          <span class="badge">Prix de lancement</span>
+          <div class="price">79 € <small>TTC</small></div>
+          <p>Paiement unique. Pas d’abonnement. Pas de compte à créer.</p>
+          <ul>
+            <li>Téléchargement du ZIP après achat</li>
+            <li>Utilisation locale dans votre navigateur</li>
+            <li>Support bugs bloquants pendant 14 jours</li>
+            <li>Garantie 14 jours : prix plus clair ou remboursé</li>
+          </ul>
+          <a id="paiement-a-brancher" class="button button-primary" href="#offre">Acheter PrixRentable — 79 €</a>
+          <p class="fine">Paiement sécurisé via Lemon Squeezy dès validation du compte marchand. Le lien d’achat sera ajouté ici dès que le mode production sera disponible.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head center">
+          <h2>Transparence importante.</h2>
+          <p>PrixRentable est volontairement limité : c’est ce qui le rend simple et clair.</p>
+        </div>
+        <div class="transparency-grid">
+          <div class="transparency-card">
+            <h3>Ce que PrixRentable fait</h3>
+            <p>Il vous aide à mieux préparer vos prix, vos marges, vos remises et vos propositions commerciales avant de prendre une décision.</p>
+          </div>
+          <div class="transparency-card">
+            <h3>Ce que PrixRentable ne fait pas</h3>
+            <p>Ce n’est pas un logiciel comptable, fiscal, juridique ou de facturation certifiée. Vos documents et montants restent sous votre responsabilité.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head center">
+          <h2>Questions fréquentes</h2>
+        </div>
+        <div class="faq-grid">
+          <div class="faq"><h3>Est-ce un abonnement ?</h3><p>Non. PrixRentable est vendu en paiement unique.</p></div>
+          <div class="faq"><h3>Mes données sont-elles envoyées en ligne ?</h3><p>Non. L’app fonctionne localement, sans backend applicatif ni compte utilisateur.</p></div>
+          <div class="faq"><h3>Est-ce un logiciel comptable ?</h3><p>Non. C’est un outil d’aide au chiffrage commercial, pas un outil fiscal, légal ou comptable.</p></div>
+          <div class="faq"><h3>Est-ce que ça garantit ma rentabilité ?</h3><p>Non. L’app clarifie vos hypothèses, mais votre rentabilité dépend de vos ventes, coûts réels, clients et décisions.</p></div>
+          <div class="faq"><h3>Comment l’ouvrir ?</h3><p>Vous téléchargez le ZIP, vous l’extrayez, puis vous ouvrez le fichier “1 - OUVRIR PRIXRENTABLE.html”.</p></div>
+          <div class="faq"><h3>Y a-t-il du support ?</h3><p>Le support inclus couvre les bugs bloquants signalés dans les 14 jours suivant l’achat. La personnalisation métier n’est pas incluse.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container">
+        <div class="box">
+          <h2>Prêt à arrêter de fixer vos prix au feeling ?</h2>
+          <p class="lead" style="margin-left:auto;margin-right:auto;">Testez PrixRentable sur une vraie prestation ou votre prochain devis. Si l’app ne vous aide pas à y voir plus clair, vous pouvez demander un remboursement sous 14 jours.</p>
+          <div class="hero-actions" style="justify-content:center;">
+            <a class="button button-primary" href="#offre">Obtenir PrixRentable — 79 €</a>
+            <a class="button button-secondary" href="#demo">Revoir la démo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>PrixRentable — outil local d’aide au chiffrage commercial.</span>
+      <span>Non comptable · non fiscal · non juridique · paiement unique</span>
+    </div>
+  </footer>
+</body>
+</html>

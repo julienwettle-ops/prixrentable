@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conditions — Outils Rentables</title>
+  <meta name="description" content="Conditions d’utilisation des produits numériques Outils Rentables." />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #ffffff;
+  --soft: #f6f9fc;
+  --soft-warm: #fff7ed;
+  --heading: #061b31;
+  --body: #64748d;
+  --label: #273951;
+  --purple: #533afd;
+  --purple-hover: #4434d4;
+  --orange: #ea580c;
+  --amber: #f97316;
+  --green: #108c3d;
+  --border: #e5edf5;
+  --dark: #1c1e54;
+  --shadow: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px;
+  --shadow-soft: rgba(23,23,23,0.08) 0px 15px 35px 0px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'Source Sans 3', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--heading);
+  background:
+    radial-gradient(circle at 80% 0%, rgba(249, 115, 22, .16), transparent 28rem),
+    radial-gradient(circle at 8% 16%, rgba(83, 58, 253, .10), transparent 24rem),
+    #fff;
+}
+a { color: inherit; }
+img { max-width:100%; display:block; }
+.container { width:min(1120px, calc(100% - 40px)); margin:0 auto; }
+.nav { position:sticky; top:0; z-index:50; backdrop-filter:blur(18px); background:rgba(255,255,255,.84); border-bottom:1px solid rgba(229,237,245,.75); }
+.nav-inner { height:72px; display:flex; align-items:center; justify-content:space-between; gap:22px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:600; letter-spacing:-.02em; text-decoration:none; }
+.mark { width:34px; height:34px; border-radius:8px; background:linear-gradient(135deg,var(--orange),var(--purple)); box-shadow:var(--shadow-soft); position:relative; }
+.mark::after { content:'€'; position:absolute; inset:0; display:grid; place-items:center; color:white; font-weight:700; font-size:18px; }
+.nav-links { display:flex; align-items:center; gap:20px; color:var(--label); font-size:15px; }
+.nav-links a { text-decoration:none; }
+.button { display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:7px; padding:12px 18px; border:1px solid transparent; text-decoration:none; font-weight:600; line-height:1; transition:transform .16s ease, background .16s ease, box-shadow .16s ease; white-space:nowrap; }
+.button:hover { transform:translateY(-1px); }
+.button-primary { background:var(--purple); color:white; box-shadow:rgba(83,58,253,.28) 0 16px 34px -18px; }
+.button-primary:hover { background:var(--purple-hover); }
+.button-secondary { background:white; color:var(--purple); border-color:#b9b9f9; }
+.button-warm { background:var(--heading); color:white; }
+.hero { padding:92px 0 58px; }
+.hero-grid { display:grid; grid-template-columns:1.02fr .98fr; align-items:center; gap:56px; }
+.eyebrow { display:inline-flex; gap:8px; align-items:center; color:var(--orange); font-weight:700; font-size:14px; letter-spacing:.04em; text-transform:uppercase; margin-bottom:18px; }
+h1 { font-size:clamp(44px, 6vw, 78px); line-height:.95; letter-spacing:-.055em; margin:0 0 22px; }
+h2 { font-size:clamp(34px, 4.2vw, 56px); line-height:1; letter-spacing:-.045em; margin:0 0 16px; }
+h3 { font-size:22px; letter-spacing:-.025em; margin:0 0 10px; }
+p { color:var(--body); font-size:18px; line-height:1.65; margin:0; }
+.lead { font-size:22px; line-height:1.55; max-width:720px; }
+.actions { display:flex; flex-wrap:wrap; gap:14px; margin-top:30px; }
+.hero-card { background:linear-gradient(180deg, white, #f9fbff); border:1px solid var(--border); border-radius:28px; padding:28px; box-shadow:var(--shadow); }
+.product-preview { border-radius:20px; overflow:hidden; border:1px solid var(--border); background:white; }
+.preview-caption { display:flex; justify-content:space-between; gap:16px; padding:18px 4px 0; font-size:15px; color:var(--body); }
+.section { padding:82px 0; }
+.section-soft { background:linear-gradient(180deg, rgba(246,249,252,.75), rgba(255,255,255,.92)); border-block:1px solid rgba(229,237,245,.75); }
+.kicker { color:var(--orange); font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:13px; margin-bottom:10px; }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:32px; }
+.card { background:white; border:1px solid var(--border); border-radius:22px; padding:24px; box-shadow:var(--shadow-soft); }
+.card strong { display:block; font-size:18px; margin-bottom:8px; }
+.product-card { display:grid; grid-template-columns:1fr .92fr; gap:30px; align-items:center; background:white; border:1px solid var(--border); border-radius:28px; padding:26px; box-shadow:var(--shadow); margin-top:32px; }
+.badges { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 22px; }
+.badge { border:1px solid #dce7f4; background:#f8fbff; color:var(--label); border-radius:999px; padding:7px 11px; font-size:14px; font-weight:600; }
+.price { font-size:42px; font-weight:700; letter-spacing:-.04em; color:var(--heading); margin:14px 0 8px; }
+ul.clean { list-style:none; padding:0; margin:20px 0 0; display:grid; gap:10px; color:var(--body); font-size:17px; }
+ul.clean li::before { content:'✓'; color:var(--green); font-weight:700; margin-right:9px; }
+.policy-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:32px; }
+.footer { padding:46px 0; border-top:1px solid var(--border); color:var(--body); }
+.footer-inner { display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.footer a { color:var(--label); text-decoration:none; margin-right:16px; }
+.notice { background:#fff7ed; border:1px solid #fed7aa; border-radius:18px; padding:18px; color:#7c2d12; margin-top:22px; }
+.page { padding:76px 0 96px; }
+.page h1 { font-size:clamp(42px, 5vw, 62px); }
+.page article { max-width:860px; }
+.page article h2 { font-size:30px; margin-top:38px; }
+.page article p, .page article li { font-size:18px; color:var(--body); line-height:1.7; }
+@media (max-width: 860px) {
+  .nav-inner { height:auto; padding:16px 0; align-items:flex-start; }
+  .nav-links { display:none; }
+  .hero-grid, .product-card, .grid-3, .policy-grid { grid-template-columns:1fr; }
+  .hero { padding-top:58px; }
+  .section { padding:60px 0; }
+}
+</style>
+  
+</head>
+<body>
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="Accueil Outils Rentables"><span class="mark"></span><span>Outils Rentables</span></a>
+      <div class="nav-links">
+        <a href="index.html#activite">Activité</a>
+        <a href="index.html#produits">Produits</a>
+        <a href="index.html#politiques">Infos client</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+  <main class="page"><div class="container"><article><div class="kicker">Conditions</div><h1>Conditions d’utilisation</h1><p>Outils Rentables vend des produits numériques destinés aux indépendants, freelances et petites entreprises. Les produits sont fournis en téléchargement après paiement lorsque le checkout Lemon Squeezy est activé.</p><h2>Produits numériques</h2><p>Les produits proposés peuvent inclure des applications locales, modèles, guides, exemples et fichiers de support. Aucun bien physique n’est expédié.</p><h2>Licence d’usage</h2><p>L’achat donne le droit d’utiliser le produit pour ses propres besoins professionnels ou personnels. La revente, la redistribution publique ou la mise à disposition du produit complet à des tiers n’est pas autorisée sans accord écrit.</p><h2>Prix et paiement</h2><p>Les prix sont affichés sur les fiches produit. PrixRentable Solo est proposé au prix de lancement de 79 € TTC, en paiement unique, sans abonnement.</p><h2>Annulation</h2><p>Les produits actuels ne sont pas des abonnements. Il n’y a donc pas d’abonnement récurrent à annuler. Pour toute difficulté après achat, consultez la page Remboursements & litiges.</p><h2>Limites importantes</h2><p>Les produits fournis ne remplacent pas un expert-comptable, un avocat, un conseiller fiscal ou un conseil financier. L’utilisateur reste responsable de vérifier les résultats et de les adapter à sa situation.</p><h2>Promotions</h2><p>Aucune promotion permanente n’est active. Les conditions particulières d’une promotion éventuelle seront indiquées clairement sur la page produit ou au checkout.</p></article></div></main><footer class="footer"><div class="container footer-inner"><div>© 2026 Outils Rentables</div><div><a href="index.html">Accueil</a><a href="confidentialite.html">Confidentialité</a><a href="contact.html">Contact</a></div></div></footer>
+</body>
+</html>
